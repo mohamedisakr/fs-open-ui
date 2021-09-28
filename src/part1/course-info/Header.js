@@ -1,5 +1,4 @@
-const Header = (props) => {
-  const {name} = props
+const Header = ({name}) => {
   return (
     <div>
       <h3>{name}</h3>

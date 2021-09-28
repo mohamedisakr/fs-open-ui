@@ -1,5 +1,4 @@
-const Part = (props) => {
-  const {name, exercises} = props
+const Part = ({name, exercises}) => {
   return (
     <div>
       {name} {exercises}

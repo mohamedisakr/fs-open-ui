@@ -6,12 +6,14 @@ import Total from './Total'
 const App = () => {
   const course = 'Half Stack application development'
 
+  const exercises = [10, 7, 14]
+
   const parts = [
     {name: 'Fundamentals of React', exercises: 10},
     {name: 'Using props to pass data', exercises: 7},
     {name: 'State of a component', exercises: 14},
   ]
-  const exercises = [10, 7, 14]
+
   return (
     <div>
       <h1>{course}</h1>
