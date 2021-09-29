@@ -1,37 +1,27 @@
-import React from 'react'
-// import Content from './Content'
-// import Header from './Header'
-// import Total from './Total'
-import Counter from './Counter'
+import React, {useState} from 'react'
 
 const App = () => {
-  // const course = {
-  //   name: 'Half Stack application development',
-  //   parts: [
-  //     {
-  //       name: 'Fundamentals of React',
-  //       exercises: 10,
-  //     },
-  //     {
-  //       name: 'Using props to pass data',
-  //       exercises: 7,
-  //     },
-  //     {
-  //       name: 'State of a component',
-  //       exercises: 14,
-  //     },
-  //   ],
-  // }
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAllClicks] = useState([])
 
-  // const {name, parts} = course
-  // const exercises = parts.map(({exercises}) => exercises)
+  const handleLeftClick = () => {
+    setAllClicks(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
+
+  const handleRightClick = () => {
+    setAllClicks(allClicks.concat('R'))
+    setRight(right + 1)
+  }
 
   return (
     <div>
-      <Counter />
-      {/* <Header name={name} />
-      <Content parts={parts} />
-      <Total exercises={exercises} /> */}
+      {left}
+      <button onClick={handleLeftClick}>left</button>
+      <button onClick={handleRightClick}>right</button>
+      {right}
+      <p>{allClicks.join(' ')}</p>
     </div>
   )
 }
