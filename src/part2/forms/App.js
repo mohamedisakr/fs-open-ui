@@ -4,6 +4,7 @@ import Note from './Note'
 const App = ({notes}) => {
   const [allNotes, setAllNotes] = useState(notes)
   const [newNote, setNewNote] = useState('')
+  const [showAll, setShowAll] = useState(true)
 
   const addNote = (event) => {
     event.preventDefault()
@@ -22,11 +23,24 @@ const App = ({notes}) => {
     setNewNote(event.target.value)
   }
 
+  const handleShowNotes = () => {
+    setShowAll(!showAll)
+  }
+
+  const notesToShow = showAll
+    ? allNotes
+    : allNotes.filter((note) => note.important === true)
+
   return (
     <div>
       <h2>Notes</h2>
+      <div>
+        <button onClick={() => handleShowNotes()}>
+          show {showAll ? 'important' : 'all'}
+        </button>
+      </div>
       <ul>
-        {allNotes.map((note) => {
+        {notesToShow.map((note) => {
           let {id, content} = note
           return <Note key={id} content={content} />
         })}
