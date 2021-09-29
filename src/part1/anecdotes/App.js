@@ -11,9 +11,11 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients',
   ]
 
-  const [selected, setSelected] = useState(-1)
   const min = 0
   const max = anecdotes.length
+
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(Array(max).fill(0))
 
   const generateRandom = (min, max) => {
     let newMin = Math.ceil(min)
@@ -24,11 +26,25 @@ const App = () => {
   const handleSelect = (e) => {
     setSelected(generateRandom(min, max - 1))
   }
+
+  const handleVote = (e) => {
+    const copy = [...votes]
+    copy[selected] = copy[selected] + 1
+    setVotes(copy)
+  }
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      {votes[selected] > 0 ? (
+        <p>has {votes[selected]} votes</p>
+      ) : (
+        <p>has no votes</p>
+      )}
       <button id="selectButton" onClick={handleSelect}>
         next anecdote
+      </button>
+      <button id="voteButton" onClick={handleVote}>
+        vote
       </button>
     </div>
   )
