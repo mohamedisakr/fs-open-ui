@@ -9,8 +9,10 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const positive = (good / total) * 100
-  const average = (good * 1 + neutral * 0 + bad * -1) / total
+  const positive = `${parseFloat((good / total) * 100, 2).toFixed(1)} %`
+  const average = parseFloat(
+    (good * 1 + neutral * 0 + bad * -1) / total,
+  ).toFixed(1)
 
   const handleGood = (e) => {
     setGood(good + 1)
