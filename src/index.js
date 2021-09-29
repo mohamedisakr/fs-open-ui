@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 // import App from './App';
-import App from './part1/unicafe/App'
+import App from './part1/anecdotes/App'
 // import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
