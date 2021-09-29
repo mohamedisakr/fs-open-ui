@@ -16,6 +16,20 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(max).fill(0))
+  const [mostVotes, setMostVotes] = useState(0)
+  const [mostIndex, setMostIndex] = useState(0)
+
+  const getMostVotes = () => {
+    let mostVotes = votes[0]
+    let mostIndex = 0
+    for (let i = 1; i < votes.length; i++) {
+      if (votes[i] > mostVotes) {
+        mostVotes = votes[i]
+        mostIndex = i
+      }
+    }
+    return [mostVotes, mostIndex]
+  }
 
   const generateRandom = (min, max) => {
     let newMin = Math.ceil(min)
@@ -31,22 +45,37 @@ const App = () => {
     const copy = [...votes]
     copy[selected] = copy[selected] + 1
     setVotes(copy)
+    const [mostVotes, mostIndex] = getMostVotes()
+    setMostVotes(mostVotes)
+    setMostIndex(mostIndex)
   }
   return (
-    <div>
-      <p>{anecdotes[selected]}</p>
-      {votes[selected] > 0 ? (
-        <p>has {votes[selected]} votes</p>
-      ) : (
-        <p>has no votes</p>
-      )}
-      <button id="selectButton" onClick={handleSelect}>
-        next anecdote
-      </button>
-      <button id="voteButton" onClick={handleVote}>
-        vote
-      </button>
-    </div>
+    <>
+      <div>
+        <h3>Anecdote of the day</h3>
+        <p>{anecdotes[selected]}</p>
+        {votes[selected] > 0 ? (
+          <p>has {votes[selected]} votes</p>
+        ) : (
+          <p>has no votes</p>
+        )}
+        <button id="selectButton" onClick={handleSelect}>
+          next anecdote
+        </button>
+        <button id="voteButton" onClick={handleVote}>
+          vote
+        </button>
+      </div>
+      <div>
+        <h3>Anecdote with most votes</h3>
+        {mostVotes > 0 ? (
+          <div>
+            <p>{anecdotes[mostIndex]}</p>
+            <p>has {votes[mostIndex]} votes</p>
+          </div>
+        ) : null}
+      </div>
+    </>
   )
 }
 
