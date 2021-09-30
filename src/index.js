@@ -1,16 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import axios from 'axios'
 import './index.css'
-import App from './part2/phonebook/App'
+import App from './part2/server-data/App'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root'),
-)
+axios.get('http://localhost:3001/notes').then((response) => {
+  const notes = response.data
+  ReactDOM.render(<App notes={notes} />, document.getElementById('root'))
+})
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals()
+// const fetchNotes = async () => {
+//   const response = await axios.get('http://localhost:3001/notes')
+//   const notes = response.data
+//   return notes
+// }
+
+// const notes = fetchNotes()
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App notes={notes} />
+//   </React.StrictMode>,
+//   document.getElementById('root'),
+// )
