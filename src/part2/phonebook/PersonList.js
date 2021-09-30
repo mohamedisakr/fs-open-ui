@@ -1,11 +1,10 @@
+import PersonCart from './PersonCart'
+
 const PersonList = ({persons}) => {
   return persons.map((person) => {
     const {id, name, number} = person
-    return (
-      <li key={id}>
-        {name} {number}
-      </li>
-    )
+
+    return <PersonCart id={id} name={name} number={number} />
   })
 }
 
