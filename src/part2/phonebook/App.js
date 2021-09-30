@@ -1,14 +1,23 @@
-import React, {useState} from 'react'
-import {payload} from './names-data'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 import SearchBox from './SearchBox'
 
 const App = () => {
-  const [persons, setPersons] = useState(payload)
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNUmber] = useState('')
   const [keyword, setKeyword] = useState('')
+  const url = 'http://localhost:3001/persons'
+
+  const hook = () => {
+    axios.get(url).then((response) => {
+      setPersons(response.data)
+    })
+  }
+
+  useEffect(hook, [])
 
   const resetControls = () => {
     setNewName('')
