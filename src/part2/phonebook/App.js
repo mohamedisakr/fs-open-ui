@@ -9,6 +9,13 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  const preventAddDuplicateName = (name) => {
+    if (persons.some((person) => person.name === name)) {
+      return true
+    }
+    return false
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const personToAdd = {
@@ -16,13 +23,21 @@ const App = () => {
       number: '93-32-6423122',
       name: newName,
     }
+
+    const isExist = preventAddDuplicateName(personToAdd.name)
+    if (isExist === true) {
+      alert(`${newName} is already added to phonebook`)
+      setNewName('')
+      return
+    }
+
     setPersons(persons.concat(personToAdd))
     setNewName('')
   }
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
       <h2>Names</h2>
       <ul>
         {persons.map((person) => {
