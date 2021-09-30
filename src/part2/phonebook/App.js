@@ -4,9 +4,19 @@ import {payload} from './names-data'
 const App = () => {
   const [persons, setPersons] = useState(payload)
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNUmber] = useState('')
+
+  const resetState = () => {
+    setNewName('')
+    setNewNUmber('')
+  }
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNUmber(event.target.value)
   }
 
   const preventAddDuplicateName = (name) => {
@@ -20,39 +30,46 @@ const App = () => {
     event.preventDefault()
     const personToAdd = {
       id: persons.length + 1,
-      number: '93-32-6423122',
+      number: newNumber,
       name: newName,
     }
 
     const isExist = preventAddDuplicateName(personToAdd.name)
     if (isExist === true) {
       alert(`${newName} is already added to phonebook`)
-      setNewName('')
+      resetState()
       return
     }
 
     setPersons(persons.concat(personToAdd))
-    setNewName('')
+    resetState()
   }
 
   return (
     <div>
       <h1>Phonebook</h1>
       <h2>Names</h2>
-      <ul>
-        {persons.map((person) => {
-          const {id, name} = person
-          return <li key={id}>{name}</li>
-        })}
-      </ul>
       <form onSubmit={handleSubmit}>
         <div>
           name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
+      <ul>
+        {persons.map((person) => {
+          const {id, name, number} = person
+          return (
+            <li key={id}>
+              {name} {number}
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }
