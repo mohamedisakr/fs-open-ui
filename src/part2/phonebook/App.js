@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {payload} from './names-data'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
+import SearchBox from './SearchBox'
 
 const App = () => {
   const [persons, setPersons] = useState(payload)
@@ -62,13 +63,14 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <div>
+      <SearchBox keyword={keyword} updateSearch={updateSearch} />
+      {/* <div>
         filter:
         <input
           value={keyword}
           onChange={(event) => updateSearch(event.target.value)}
         />
-      </div>
+      </div> */}
       <PersonForm
         handleSubmit={handleSubmit}
         newName={newName}
