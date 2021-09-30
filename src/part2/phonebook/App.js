@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {payload} from './names-data'
+import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 
 const App = () => {
@@ -68,29 +69,16 @@ const App = () => {
           onChange={(event) => updateSearch(event.target.value)}
         />
       </div>
-      <h2>Add New Person</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        handleSubmit={handleSubmit}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
       <h2>Names</h2>
       <ul>
         <PersonList persons={personsToShow} />
-        {/* {personsToShow.map((person) => {
-          const {id, name, number} = person
-          return (
-            <li key={id}>
-              {name} {number}
-            </li>
-          )
-        })} */}
       </ul>
     </div>
   )
