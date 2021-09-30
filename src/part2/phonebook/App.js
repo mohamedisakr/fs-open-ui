@@ -73,13 +73,6 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       <SearchBox keyword={keyword} updateSearch={updateSearch} />
-      {/* <div>
-        filter:
-        <input
-          value={keyword}
-          onChange={(event) => updateSearch(event.target.value)}
-        />
-      </div> */}
       <PersonForm
         handleSubmit={handleSubmit}
         newName={newName}
