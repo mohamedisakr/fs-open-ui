@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {payload} from './names-data'
+import PersonList from './PersonList'
 
 const App = () => {
   const [persons, setPersons] = useState(payload)
@@ -81,14 +82,15 @@ const App = () => {
       </form>
       <h2>Names</h2>
       <ul>
-        {personsToShow.map((person) => {
+        <PersonList persons={personsToShow} />
+        {/* {personsToShow.map((person) => {
           const {id, name, number} = person
           return (
             <li key={id}>
               {name} {number}
             </li>
           )
-        })}
+        })} */}
       </ul>
     </div>
   )
