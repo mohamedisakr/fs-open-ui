@@ -6,11 +6,11 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const url = 'http://localhost:3001/notes'
+  const baseURL = 'http://localhost:3001/notes'
 
   const hook = () => {
     console.log('effect')
-    axios.get(url).then((response) => {
+    axios.get(baseURL).then((response) => {
       console.log('promise fulfilled')
       setNotes(response.data)
     })
@@ -26,7 +26,7 @@ const App = () => {
       important: Math.random() < 0.5,
     }
 
-    axios.post(url, noteToAdd).then((response) => {
+    axios.post(baseURL, noteToAdd).then((response) => {
       console.log(response)
       setNotes(notes.concat(response.data))
       setNewNote('')
@@ -40,6 +40,17 @@ const App = () => {
 
   const handleShowNotes = () => {
     setShowAll(!showAll)
+  }
+
+  const toggleImportanceOf = (id) => {
+    // console.log(`importance of ${id} needs to be toggled`)
+    const url = `${baseURL}/${id}`
+    const note = notes.find((note) => note.id === id)
+    const noteToUpdate = {...note, important: !note.important}
+
+    axios.put(url, noteToUpdate).then((response) => {
+      setNotes(notes.map((note) => (note.id !== id ? note : response.data)))
+    })
   }
 
   const notesToShow = showAll
@@ -56,8 +67,15 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map((note) => {
-          let {id, content} = note
-          return <Note key={id} content={content} />
+          let {id, content, important} = note
+          return (
+            <Note
+              key={id}
+              content={content}
+              toggleImportance={() => toggleImportanceOf(id)}
+              important={important}
+            />
+          )
         })}
       </ul>
       <form onSubmit={addNote}>
