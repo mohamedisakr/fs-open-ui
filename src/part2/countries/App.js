@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import CountryCart from './CountryCart'
+import SearchBox from './SearchBox'
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -46,13 +47,7 @@ const App = () => {
   return (
     <div>
       <h1>Countries</h1>
-      <div>
-        filter:
-        <input
-          value={keyword}
-          onChange={(event) => updateSearch(event.target.value)}
-        />
-      </div>
+      <SearchBox keyword={keyword} updateSearch={updateSearch} />
       {(function () {
         if (
           countriesToShow.length !== countries.length &&
