@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {getAll, create, update} from '../../services/phonebook'
+import {getAll, create, remove} from '../../services/phonebook'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 import SearchBox from './SearchBox'
@@ -41,7 +41,6 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     const personToAdd = {
-      id: persons.length + 1,
       number: newNumber,
       name: newName,
     }
@@ -63,6 +62,21 @@ const App = () => {
     setKeyword(query.trim())
   }
 
+  const deletePerson = (id) => {
+    const person = persons.find((p) => p.id === id)
+
+    remove(id)
+      .then((returnedNote) => {
+        console.log(`delete contact ${returnedNote}`)
+        setPersons(persons.filter((p) => p.id !== id))
+      })
+      .catch((error) => {
+        alert(`the note '${person.name}' was already deleted from server`)
+        console.error(error)
+        setPersons(persons.filter((p) => p.id !== id))
+      })
+  }
+
   const personsToShow =
     keyword === ''
       ? persons
@@ -82,9 +96,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Names</h2>
-      <ul>
-        <PersonList persons={personsToShow} />
-      </ul>
+      <PersonList persons={personsToShow} handleDelete={deletePerson} />
     </div>
   )
 }
