@@ -41,9 +41,14 @@ const App = () => {
     const note = notes.find((note) => note.id === id)
     const noteToUpdate = {...note, important: !note.important}
 
-    update(id, noteToUpdate).then((returnedNote) => {
-      setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)))
-    })
+    update(id, noteToUpdate)
+      .then((returnedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)))
+      })
+      .catch((error) => {
+        alert(`the note '${note.content}' was already deleted from server`)
+        setNotes(notes.filter((n) => n.id !== id))
+      })
   }
 
   const notesToShow = showAll
