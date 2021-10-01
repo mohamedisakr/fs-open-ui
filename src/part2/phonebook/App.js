@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import {getAll, create, update} from '../../services/phonebook'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 import SearchBox from './SearchBox'
@@ -9,11 +9,10 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNUmber] = useState('')
   const [keyword, setKeyword] = useState('')
-  const url = 'http://localhost:3001/persons'
 
   const hook = () => {
-    axios.get(url).then((response) => {
-      setPersons(response.data)
+    getAll().then((initialNotes) => {
+      setPersons(initialNotes)
     })
   }
 
@@ -54,8 +53,10 @@ const App = () => {
       return
     }
 
-    setPersons(persons.concat(personToAdd))
-    resetControls()
+    create(personToAdd).then((returnedNote) => {
+      setPersons(persons.concat(returnedNote))
+      resetControls()
+    })
   }
 
   const updateSearch = (query) => {
