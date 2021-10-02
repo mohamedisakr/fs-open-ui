@@ -1,8 +1,8 @@
 {
   "persons": [
     {
+      "number": "040-654321",
       "name": "Arto Hellas",
-      "number": "040-123456",
       "id": 1
     },
     {
@@ -26,7 +26,7 @@
       "id": 5
     },
     {
-      "number": "991-668-7862",
+      "number": "111-222-3333",
       "name": "test user",
       "id": 6
     }

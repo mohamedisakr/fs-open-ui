@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {getAll, create, remove} from '../../services/phonebook'
+import {getAll, create, remove, update} from '../../services/phonebook'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 import SearchBox from './SearchBox'
@@ -10,13 +10,15 @@ const App = () => {
   const [newNumber, setNewNUmber] = useState('')
   const [keyword, setKeyword] = useState('')
 
-  const hook = () => {
-    getAll().then((initialNotes) => {
-      setPersons(initialNotes)
-    })
+  const hook = async () => {
+    const initialNotes = await getAll()
+    setPersons(initialNotes)
+    // getAll().then((initialNotes) => {
+    //   setPersons(initialNotes)
+    // })
   }
 
-  useEffect(hook, [])
+  useEffect(() => hook(), [])
 
   const resetControls = () => {
     setNewName('')
@@ -32,30 +34,53 @@ const App = () => {
   }
 
   const preventAddDuplicateName = (name) => {
-    if (persons.some((person) => person.name === name)) {
+    if (
+      persons.some((person) => person.name.toLowerCase() === name.toLowerCase())
+    ) {
       return true
     }
     return false
   }
 
+  const findByNameAndReturnID = (name) => {
+    const person = persons.find(
+      (person) => person.name.toLowerCase() === name.toLowerCase(),
+    )
+    if (person) {
+      return {id: person.id, name: person.name}
+    }
+    return null
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const personToAdd = {
-      number: newNumber,
-      name: newName,
+      number: newNumber.trim(),
+      name: newName.trim(),
     }
 
-    const isExist = preventAddDuplicateName(personToAdd.name)
-    if (isExist === true) {
-      alert(`${newName} is already added to phonebook`)
-      resetControls()
-      return
-    }
+    // if a number is added to an already existing user,
+    // the new number will replace the old number.
+    const {id, name} = findByNameAndReturnID(personToAdd.name)
 
-    create(personToAdd).then((returnedNote) => {
-      setPersons(persons.concat(returnedNote))
-      resetControls()
-    })
+    if (id) {
+      // eslint-disable-next-line no-restricted-globals
+      let isOk = confirm(
+        `${name} is already added to phonebook, replace the old number with a new one?`,
+      )
+      if (isOk) {
+        const updatedPerson = {...personToAdd, id}
+        update(id, updatedPerson).then((returnedNote) => {
+          setPersons(persons.concat(returnedNote))
+          resetControls()
+        })
+      }
+    } else {
+      create(personToAdd).then((returnedNote) => {
+        setPersons(persons.concat(returnedNote))
+        resetControls()
+      })
+    }
   }
 
   const updateSearch = (query) => {
