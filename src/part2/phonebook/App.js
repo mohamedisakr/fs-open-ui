@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {getAll, create, remove, update} from '../../services/phonebook'
+import Confirmation from '../../utils/Confirmation'
+import Notification from '../../utils/Notification'
 import PersonForm from './PersonForm'
 import PersonList from './PersonList'
 import SearchBox from './SearchBox'
@@ -9,13 +11,12 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNUmber] = useState('')
   const [keyword, setKeyword] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
 
   const hook = async () => {
     const initialNotes = await getAll()
     setPersons(initialNotes)
-    // getAll().then((initialNotes) => {
-    //   setPersons(initialNotes)
-    // })
   }
 
   useEffect(() => hook(), [])
@@ -59,28 +60,35 @@ const App = () => {
       name: newName.trim(),
     }
 
-    // if a number is added to an already existing user,
-    // the new number will replace the old number.
-    const {id, name} = findByNameAndReturnID(personToAdd.name)
-
-    if (id) {
-      // eslint-disable-next-line no-restricted-globals
-      let isOk = confirm(
-        `${name} is already added to phonebook, replace the old number with a new one?`,
-      )
-      if (isOk) {
-        const updatedPerson = {...personToAdd, id}
-        update(id, updatedPerson).then((returnedNote) => {
-          setPersons(persons.concat(returnedNote))
-          resetControls()
-        })
-      }
-    } else {
-      create(personToAdd).then((returnedNote) => {
-        setPersons(persons.concat(returnedNote))
+    // if new user create
+    const result = findByNameAndReturnID(personToAdd.name)
+    if (result === null) {
+      create(personToAdd).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson))
         resetControls()
       })
+    } else {
+      // if already existing user, a number is added to an this user,
+      // the new number will replace the old number.
+      const {id, name} = result
+      if (id) {
+        // eslint-disable-next-line no-restricted-globals
+        let isOk = confirm(
+          `${name} is already added to phonebook, replace the old number with a new one?`,
+        )
+        if (isOk) {
+          const updatedPerson = {...personToAdd, id}
+          update(id, updatedPerson).then((returnedPerson) => {
+            setPersons(persons.concat(returnedPerson))
+            resetControls()
+          })
+        }
+      }
     }
+    setSuccessMessage(`Contact created successfully`)
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
   }
 
   const updateSearch = (query) => {
@@ -96,10 +104,20 @@ const App = () => {
         setPersons(persons.filter((p) => p.id !== id))
       })
       .catch((error) => {
-        alert(`the note '${person.name}' was already deleted from server`)
-        console.error(error)
+        setErrorMessage(
+          `The note '${person.name}' was already deleted from server`,
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+
         setPersons(persons.filter((p) => p.id !== id))
       })
+
+    setErrorMessage(`Contact deleted successfully`)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
   }
 
   const personsToShow =
@@ -112,6 +130,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Confirmation message={successMessage} />
+      <Notification message={errorMessage} />
       <SearchBox keyword={keyword} updateSearch={updateSearch} />
       <PersonForm
         handleSubmit={handleSubmit}

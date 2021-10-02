@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './part2/altering-data/App'
+import App from './part2/phonebook/App'
 
 ReactDOM.render(
   <React.StrictMode>
