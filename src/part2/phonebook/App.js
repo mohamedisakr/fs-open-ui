@@ -43,15 +43,15 @@ const App = () => {
   //   return false
   // }
 
-  const findByNameAndReturnID = (name) => {
-    const person = persons.find(
-      (person) => person.name.toLowerCase() === name.toLowerCase(),
-    )
-    if (person) {
-      return {id: person.id, name: person.name}
-    }
-    return null
-  }
+  // const findByNameAndReturnID = (name) => {
+  //   const person = persons.find(
+  //     (person) => person.name.toLowerCase() === name.toLowerCase(),
+  //   )
+  //   if (person) {
+  //     return {id: person.id, name: person.name}
+  //   }
+  //   return null
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -60,31 +60,53 @@ const App = () => {
       name: newName.trim(),
     }
 
-    // if new user create
-    const result = findByNameAndReturnID(personToAdd.name)
-    if (result === null) {
-      create(personToAdd).then((returnedPerson) => {
+    create(personToAdd)
+      .then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson))
         resetControls()
       })
+      .catch((error) => {
+        console.log(error)
+        setErrorMessage(error)
+      })
+
+    /*
+    // if new user create
+    const result = findByNameAndReturnID(personToAdd.name)
+    if (result === null) {
+      try {
+        create(personToAdd).then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson))
+          resetControls()
+        })
+      } catch (error) {
+        console.log(error.response.data)
+        setErrorMessage(error.response.data)
+      }
     } else {
       // if already existing user, a number is added to an this user,
       // the new number will replace the old number.
       const {id, name} = result
-      if (id) {
-        // eslint-disable-next-line no-restricted-globals
-        let isOk = confirm(
-          `${name} is already added to phonebook, replace the old number with a new one?`,
-        )
-        if (isOk) {
-          const updatedPerson = {...personToAdd, id}
-          update(id, updatedPerson).then((returnedPerson) => {
-            setPersons(persons.concat(returnedPerson))
-            resetControls()
-          })
+      try {
+        if (id) {
+          // eslint-disable-next-line no-restricted-globals
+          let isOk = confirm(
+            `${name} is already added to phonebook, replace the old number with a new one?`,
+          )
+          if (isOk) {
+            const updatedPerson = {...personToAdd, id}
+            update(id, updatedPerson).then((returnedPerson) => {
+              setPersons(persons.concat(returnedPerson))
+              resetControls()
+            })
+          }
         }
+      } catch (error) {
+        console.log(error.response.data)
+        setErrorMessage(error.response.data)
       }
     }
+    */
     setSuccessMessage(`Contact created successfully`)
     setTimeout(() => {
       setSuccessMessage(null)

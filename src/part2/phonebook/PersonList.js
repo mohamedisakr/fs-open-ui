@@ -5,7 +5,7 @@ const PersonList = ({persons, handleDelete}) => {
     const {id, name, number} = person
 
     return (
-      <ul style={{listStyle: 'none', padding: 0}}>
+      <ul key={id} style={{listStyle: 'none', padding: 0}}>
         <PersonCart
           key={id}
           id={id}
