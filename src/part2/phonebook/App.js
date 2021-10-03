@@ -34,14 +34,14 @@ const App = () => {
     setNewNUmber(event.target.value)
   }
 
-  const preventAddDuplicateName = (name) => {
-    if (
-      persons.some((person) => person.name.toLowerCase() === name.toLowerCase())
-    ) {
-      return true
-    }
-    return false
-  }
+  // const preventAddDuplicateName = (name) => {
+  //   if (
+  //     persons.some((person) => person.name.toLowerCase() === name.toLowerCase())
+  //   ) {
+  //     return true
+  //   }
+  //   return false
+  // }
 
   const findByNameAndReturnID = (name) => {
     const person = persons.find(
