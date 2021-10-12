@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {getAll, create, update} from '../../services/notes'
+import {getAll, create, update, setToken} from '../../services/notes'
 import {login} from '../../services/login'
 import Note from './Note'
 import Notification from '../../utils/Notification'
@@ -72,6 +72,7 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await login({username, password})
+      setToken(user.token)
       setUser(user)
       clearCredentials()
     } catch (exception) {
