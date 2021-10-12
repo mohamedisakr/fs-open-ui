@@ -22,6 +22,17 @@ const App = () => {
 
   useEffect(hook, [])
 
+  const checkLocalStorage = () => {
+    const loggedUserJSON = localStorage.getItem('appUserNote')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      setToken(user.token)
+    }
+  }
+
+  useEffect(checkLocalStorage, [])
+
   const addNote = (event) => {
     event.preventDefault()
     const noteToAdd = {
@@ -72,6 +83,7 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await login({username, password})
+      localStorage.setItem('appUserNote', JSON.stringify(user))
       setToken(user.token)
       setUser(user)
       clearCredentials()
