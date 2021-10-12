@@ -20,6 +20,17 @@ const App = () => {
     getAllBlogs()
   }, [])
 
+  const checkLocalStorage = () => {
+    const loggedUserJSON = localStorage.getItem('appUserNote')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      setToken(user.token)
+    }
+  }
+
+  useEffect(checkLocalStorage, [])
+
   const clearCredentials = () => {
     setUsername('')
     setPassword('')
@@ -39,6 +50,17 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
+  }
+
+  const handleLogout = async (event) => {
+    // reset localStorage
+    localStorage.removeItem('appUserNote')
+
+    // reset token
+    setToken(null)
+
+    // reset user
+    setUser(null)
   }
 
   const loginForm = () => (
@@ -81,7 +103,10 @@ const App = () => {
         loginForm()
       ) : (
         <div>
-          <p>{user.name} logged-in</p>
+          <span>
+            <p>{user.name} logged-in</p>
+            <button onClick={handleLogout}>Logout</button>
+          </span>
           {blogListView()}
         </div>
       )}
