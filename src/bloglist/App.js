@@ -10,6 +10,8 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [title, setTitle] = useState('')
+  const [url, setUrl] = useState('')
 
   const getAllBlogs = async () => {
     const allBlogs = await getAll()
@@ -26,6 +28,8 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       setToken(user.token)
+      console.log(`user : ${user}`)
+      console.log(`token : ${user.token}`)
     }
   }
 
@@ -44,6 +48,8 @@ const App = () => {
       setToken(user.token)
       setUser(user)
       clearCredentials()
+      console.log(`user : ${user}`)
+      console.log(`token : ${user.token}`)
     } catch (exception) {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
@@ -53,6 +59,9 @@ const App = () => {
   }
 
   const handleLogout = async (event) => {
+    console.log(`user : ${user}`)
+    console.log(`token : ${user.token}`)
+
     // reset localStorage
     localStorage.removeItem('appUserNote')
 
@@ -95,21 +104,57 @@ const App = () => {
     </ul>
   )
 
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogToAdd = {title, url, author: user.id}
+
+    create(blogToAdd).then((returnedNote) => {
+      setBlogs(blogs.concat(returnedNote))
+      setTitle('')
+      setUrl('')
+    })
+  }
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value)
+  }
+
+  const blogForm = () => (
+    <form onSubmit={addBlog}>
+      <div>
+        Title:
+        <input value={title} onChange={handleTitleChange} />
+      </div>
+      <div>
+        URL:
+        <input value={url} onChange={handleUrlChange} />
+      </div>
+      <button type="submit">save</button>
+    </form>
+  )
+
   return (
     <div>
       <h2>blogs</h2>
       <Notification message={errorMessage} />
-      {user === null ? (
-        loginForm()
-      ) : (
-        <div>
-          <span>
-            <p>{user.name} logged-in</p>
-            <button onClick={handleLogout}>Logout</button>
-          </span>
-          {blogListView()}
-        </div>
-      )}
+      <div>
+        {user === null ? (
+          loginForm()
+        ) : (
+          <div>
+            <span>
+              <p>{user.name} logged-in</p>
+              <button onClick={handleLogout}>Logout</button>
+            </span>
+            <div> {blogForm()}</div>
+            <div> {blogListView()}</div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
