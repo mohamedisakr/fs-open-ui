@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {getAll, create, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
-// import Confirmation from '../utils/Confirmation'
+import Confirmation from '../utils/Confirmation'
 import {login} from '../services/login'
 import BlogListView from './components/BlogListView'
 import BlogForm from './components/BlogForm'
@@ -10,12 +10,10 @@ import LoginForm from './components/LoginForm'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
-  // const [confirmMessage, setConfirMMessage] = useState(null)
+  const [confirmMessage, setConfirMMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
 
   const getAllBlogs = async () => {
     const allBlogs = await getAll()
@@ -78,28 +76,15 @@ const App = () => {
     setUser(null)
   }
 
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogToAdd = {title, url, user: user.id}
-
-    create(blogToAdd).then((returnedNote) => {
+  const addBlog = (blogObject) => {
+    create(blogObject).then((returnedNote) => {
       setBlogs(blogs.concat(returnedNote))
-      setTitle('')
-      setUrl('')
     })
 
-    // setConfirMMessage(`A new blog ${title} added`)
-    // setTimeout(() => {
-    //   setConfirMMessage(null)
-    // }, 5000)
-  }
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value)
+    setConfirMMessage(`A new blog ${blogObject.title} added`)
+    setTimeout(() => {
+      setConfirMMessage(null)
+    }, 5000)
   }
 
   return (
@@ -122,13 +107,7 @@ const App = () => {
               <p>{user.name} logged-in</p>
               <button onClick={handleLogout}>Logout</button>
             </span>
-            <BlogForm
-              onSubmit={addBlog}
-              title={title}
-              url={url}
-              onTitleChange={handleTitleChange}
-              onUrlChange={handleUrlChange}
-            />
+            <BlogForm createBlog={addBlog} id={user.id} />
             <BlogListView blogs={blogs} />
           </div>
         )}
