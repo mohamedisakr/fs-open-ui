@@ -91,7 +91,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={errorMessage} />
-      {/* <Confirmation message={confirmMessage} /> */}
+      <Confirmation message={confirmMessage} />
       <div>
         {user === null ? (
           <LoginForm
