@@ -1,8 +1,12 @@
 import React from 'react'
-const Blog = ({blog}) => (
-  <li key={blog.id}>
-    {blog.title} {blog.author}
-  </li>
-)
+const Blog = ({blog}) => {
+  const {id, title, user} = blog
+  const {name} = user
+  return (
+    <li key={id}>
+      {title} {name}
+    </li>
+  )
+}
 
 export default Blog

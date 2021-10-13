@@ -28,8 +28,8 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       setToken(user.token)
-      console.log(`user : ${user}`)
-      console.log(`token : ${user.token}`)
+      // console.log(`user : ${user}`)
+      // console.log(`token : ${user.token}`)
     }
   }
 
@@ -106,7 +106,7 @@ const App = () => {
 
   const addBlog = (event) => {
     event.preventDefault()
-    const blogToAdd = {title, url, author: user.id}
+    const blogToAdd = {title, url, user: user.id}
 
     create(blogToAdd).then((returnedNote) => {
       setBlogs(blogs.concat(returnedNote))
