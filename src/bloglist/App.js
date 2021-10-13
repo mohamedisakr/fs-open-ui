@@ -4,6 +4,7 @@ import {getAll, create, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
 // import Confirmation from '../utils/Confirmation'
 import {login} from '../services/login'
+import BlogListView from './components/BlogListView'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -102,14 +103,6 @@ const App = () => {
     </form>
   )
 
-  const blogListView = () => (
-    <ul className="note-list">
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-    </ul>
-  )
-
   const addBlog = (event) => {
     event.preventDefault()
     const blogToAdd = {title, url, user: user.id}
@@ -133,6 +126,14 @@ const App = () => {
   const handleUrlChange = (event) => {
     setUrl(event.target.value)
   }
+
+  // const blogListView = () => (
+  //   <ul className="note-list">
+  //     {blogs.map((blog) => (
+  //       <Blog key={blog.id} blog={blog} />
+  //     ))}
+  //   </ul>
+  // )
 
   const blogForm = () => (
     <form onSubmit={addBlog}>
@@ -163,7 +164,8 @@ const App = () => {
               <button onClick={handleLogout}>Logout</button>
             </span>
             <div> {blogForm()}</div>
-            <div> {blogListView()}</div>
+            {/* <div> {blogListView()}</div> */}
+            <BlogListView blogs={blogs} />
           </div>
         )}
       </div>
