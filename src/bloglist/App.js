@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import Blog from './components/Blog'
+// import Blog from './components/Blog'
 import {getAll, create, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
 // import Confirmation from '../utils/Confirmation'
 import {login} from '../services/login'
 import BlogListView from './components/BlogListView'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -135,19 +136,19 @@ const App = () => {
   //   </ul>
   // )
 
-  const blogForm = () => (
-    <form onSubmit={addBlog}>
-      <div>
-        Title:
-        <input value={title} onChange={handleTitleChange} />
-      </div>
-      <div>
-        URL:
-        <input value={url} onChange={handleUrlChange} />
-      </div>
-      <button type="submit">save</button>
-    </form>
-  )
+  // const blogForm = () => (
+  //   <form onSubmit={addBlog}>
+  //     <div>
+  //       Title:
+  //       <input value={title} onChange={handleTitleChange} />
+  //     </div>
+  //     <div>
+  //       URL:
+  //       <input value={url} onChange={handleUrlChange} />
+  //     </div>
+  //     <button type="submit">save</button>
+  //   </form>
+  // )
 
   return (
     <div>
@@ -163,7 +164,14 @@ const App = () => {
               <p>{user.name} logged-in</p>
               <button onClick={handleLogout}>Logout</button>
             </span>
-            <div> {blogForm()}</div>
+            {/* <div> {blogForm()}</div> */}
+            <BlogForm
+              onSubmit={addBlog}
+              title={title}
+              url={url}
+              onTitleChange={handleTitleChange}
+              onUrlChange={handleUrlChange}
+            />
             {/* <div> {blogListView()}</div> */}
             <BlogListView blogs={blogs} />
           </div>
