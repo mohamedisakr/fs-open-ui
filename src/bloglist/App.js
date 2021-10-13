@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-// import Blog from './components/Blog'
 import {getAll, create, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
 // import Confirmation from '../utils/Confirmation'
@@ -34,8 +33,6 @@ const App = () => {
         const user = JSON.parse(loggedUserJSON)
         setUser(user)
         setToken(user.token)
-        // console.log(`user : ${user}`)
-        // console.log(`token : ${user.token}`)
       }
     } catch (error) {
       console.error(error)
@@ -105,51 +102,6 @@ const App = () => {
     setUrl(event.target.value)
   }
 
-  // const blogListView = () => (
-  //   <ul className="note-list">
-  //     {blogs.map((blog) => (
-  //       <Blog key={blog.id} blog={blog} />
-  //     ))}
-  //   </ul>
-  // )
-
-  // const blogForm = () => (
-  //   <form onSubmit={addBlog}>
-  //     <div>
-  //       Title:
-  //       <input value={title} onChange={handleTitleChange} />
-  //     </div>
-  //     <div>
-  //       URL:
-  //       <input value={url} onChange={handleUrlChange} />
-  //     </div>
-  //     <button type="submit">save</button>
-  //   </form>
-  // )
-
-  // const loginForm = () => (
-  //   <form onSubmit={handleLogin}>
-  //     <div>
-  //       username
-  //       <input
-  //         type="text"
-  //         value={username}
-  //         name="Username"
-  //         onChange={({target}) => setUsername(target.value)}
-  //       />
-  //     </div>
-  //     <div>
-  //       password
-  //       <input
-  //         type="password"
-  //         value={password}
-  //         name="Password"
-  //         onChange={({target}) => setPassword(target.value)}
-  //       />
-  //     </div>
-  //     <button type="submit">login</button>
-  //   </form>
-  // )
   return (
     <div>
       <h2>blogs</h2>
@@ -170,7 +122,6 @@ const App = () => {
               <p>{user.name} logged-in</p>
               <button onClick={handleLogout}>Logout</button>
             </span>
-            {/* <div> {blogForm()}</div> */}
             <BlogForm
               onSubmit={addBlog}
               title={title}
@@ -178,7 +129,6 @@ const App = () => {
               onTitleChange={handleTitleChange}
               onUrlChange={handleUrlChange}
             />
-            {/* <div> {blogListView()}</div> */}
             <BlogListView blogs={blogs} />
           </div>
         )}
