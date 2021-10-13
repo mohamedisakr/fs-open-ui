@@ -40,8 +40,6 @@ const App = () => {
   const handleLogin = async ({username, password}) => {
     try {
       const user = await login({username, password})
-      console.log(`user : ${user}`)
-      console.log(`username : ${username}, password : ${password}`)
       localStorage.setItem('appUserNote', JSON.stringify(user))
       setToken(user.token)
       setUser(user)
