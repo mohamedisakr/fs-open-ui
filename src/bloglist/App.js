@@ -11,8 +11,6 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [confirmMessage, setConfirMMessage] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   const getAllBlogs = async () => {
@@ -39,19 +37,15 @@ const App = () => {
 
   useEffect(checkLocalStorage, [])
 
-  const clearCredentials = () => {
-    setUsername('')
-    setPassword('')
-  }
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
+  const handleLogin = async ({username, password}) => {
     try {
       const user = await login({username, password})
+      console.log(`user : ${user}`)
+      console.log(`username : ${username}, password : ${password}`)
       localStorage.setItem('appUserNote', JSON.stringify(user))
       setToken(user.token)
       setUser(user)
-      clearCredentials()
+
       console.log(`user : ${user}`)
       console.log(`token : ${user.token}`)
     } catch (exception) {
@@ -94,13 +88,7 @@ const App = () => {
       <Confirmation message={confirmMessage} />
       <div>
         {user === null ? (
-          <LoginForm
-            onSubmit={handleLogin}
-            username={username}
-            password={password}
-            onUsernameChange={({target}) => setUsername(target.value)}
-            onPasswordChange={({target}) => setPassword(target.value)}
-          />
+          <LoginForm loginUser={handleLogin} />
         ) : (
           <div>
             <span>
@@ -117,3 +105,11 @@ const App = () => {
 }
 
 export default App
+// <LoginForm onSubmit={handleLogin} />
+// <LoginForm
+//   onSubmit={handleLogin}
+//   username={username}
+//   password={password}
+//   onUsernameChange={({target}) => setUsername(target.value)}
+//   onPasswordChange={({target}) => setPassword(target.value)}
+// />
