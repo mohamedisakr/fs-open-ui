@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Blog from './components/Blog'
 import {getAll, create, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
+// import Confirmation from '../utils/Confirmation'
 import {login} from '../services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
+  // const [confirmMessage, setConfirMMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -23,13 +25,17 @@ const App = () => {
   }, [])
 
   const checkLocalStorage = () => {
-    const loggedUserJSON = localStorage.getItem('appUserNote')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      setToken(user.token)
-      // console.log(`user : ${user}`)
-      // console.log(`token : ${user.token}`)
+    try {
+      const loggedUserJSON = localStorage.getItem('appUserNote')
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON)
+        setUser(user)
+        setToken(user.token)
+        // console.log(`user : ${user}`)
+        // console.log(`token : ${user.token}`)
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -113,6 +119,11 @@ const App = () => {
       setTitle('')
       setUrl('')
     })
+
+    // setConfirMMessage(`A new blog ${title} added`)
+    // setTimeout(() => {
+    //   setConfirMMessage(null)
+    // }, 5000)
   }
 
   const handleTitleChange = (event) => {
@@ -141,6 +152,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <Notification message={errorMessage} />
+      {/* <Confirmation message={confirmMessage} /> */}
       <div>
         {user === null ? (
           loginForm()
