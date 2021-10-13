@@ -6,6 +6,7 @@ import Notification from '../utils/Notification'
 import {login} from '../services/login'
 import BlogListView from './components/BlogListView'
 import BlogForm from './components/BlogForm'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -80,30 +81,6 @@ const App = () => {
     setUser(null)
   }
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({target}) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({target}) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
-
   const addBlog = (event) => {
     event.preventDefault()
     const blogToAdd = {title, url, user: user.id}
@@ -150,6 +127,29 @@ const App = () => {
   //   </form>
   // )
 
+  // const loginForm = () => (
+  //   <form onSubmit={handleLogin}>
+  //     <div>
+  //       username
+  //       <input
+  //         type="text"
+  //         value={username}
+  //         name="Username"
+  //         onChange={({target}) => setUsername(target.value)}
+  //       />
+  //     </div>
+  //     <div>
+  //       password
+  //       <input
+  //         type="password"
+  //         value={password}
+  //         name="Password"
+  //         onChange={({target}) => setPassword(target.value)}
+  //       />
+  //     </div>
+  //     <button type="submit">login</button>
+  //   </form>
+  // )
   return (
     <div>
       <h2>blogs</h2>
@@ -157,7 +157,13 @@ const App = () => {
       {/* <Confirmation message={confirmMessage} /> */}
       <div>
         {user === null ? (
-          loginForm()
+          <LoginForm
+            onSubmit={handleLogin}
+            username={username}
+            password={password}
+            onUsernameChange={({target}) => setUsername(target.value)}
+            onPasswordChange={({target}) => setPassword(target.value)}
+          />
         ) : (
           <div>
             <span>
