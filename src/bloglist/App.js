@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {getAll, create, setToken} from '../services/blogs'
+import {getAll, create, remove, setToken} from '../services/blogs'
 import Notification from '../utils/Notification'
 import Confirmation from '../utils/Confirmation'
 import {login} from '../services/login'
@@ -79,6 +79,32 @@ const App = () => {
     }, 5000)
   }
 
+  const deleteBlog = (id) => {
+    const blog = blogs.find((p) => p.id === id)
+    console.log(`token : ${user.token}`)
+    remove(id)
+      .then((returnedBlog) => {
+        console.log(`delete blog ${returnedBlog}`)
+        setBlogs(blogs.filter((p) => p.id !== id))
+      })
+      .catch((error) => {
+        console.error(error)
+        setErrorMessage(
+          `The note '${blog.title}' was already deleted from server`,
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+
+        setBlogs(blogs.filter((p) => p.id !== id))
+      })
+
+    // setErrorMessage(`Blog deleted successfully`)
+    // setTimeout(() => {
+    //   setErrorMessage(null)
+    // }, 5000)
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -94,7 +120,7 @@ const App = () => {
               <button onClick={handleLogout}>Logout</button>
             </span>
             <BlogForm createBlog={addBlog} id={user.id} />
-            <BlogListView blogs={blogs} />
+            <BlogListView blogs={blogs} handleDelete={deleteBlog} />
           </div>
         )}
       </div>
