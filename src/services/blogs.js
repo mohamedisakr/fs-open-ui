@@ -15,20 +15,29 @@ const getAll = async () => {
 }
 
 const create = async (newObject) => {
-  const config = {
-    headers: {Authorization: token},
+  try {
+    const config = {
+      headers: {Authorization: token},
+    }
+    console.log(`token : ${token}`)
+    const response = await axios.post(baseUrl, newObject, config)
+    return response.data
+  } catch (error) {
+    console.error(error)
   }
-  const response = await axios.post(baseUrl, newObject, config)
-  return response.data
 }
 
 const remove = async (id) => {
-  console.log(`blog url : ${baseUrl}`)
-  const config = {
-    headers: {Authorization: token},
+  try {
+    console.log(`blog url : ${baseUrl}`)
+    const config = {
+      headers: {Authorization: token},
+    }
+    console.log(`token : ${token}`)
+    const response = await axios.delete(`${baseUrl}/${id}`, config) //
+    return response.data
+  } catch (error) {
+    console.error(error)
   }
-  console.log(`token : ${token}`)
-  const response = await axios.delete(`${baseUrl}/${id}`, config) //
-  return response.data
 }
 export {getAll, create, remove, setToken}

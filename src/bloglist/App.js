@@ -69,10 +69,14 @@ const App = () => {
     setUser(null)
   }
 
-  const addBlog = (blogObject) => {
-    create(blogObject).then((returnedNote) => {
-      setBlogs(blogs.concat(returnedNote))
-    })
+  const addBlog = async (blogObject) => {
+    console.log(`new blog object : ${blogObject}`)
+    const returnedNote = await create(blogObject)
+    console.log(`added blog : ${returnedNote}`)
+    setBlogs(blogs.concat(returnedNote))
+    // create(blogObject).then((returnedNote) => {
+    //   setBlogs(blogs.concat(returnedNote))
+    // })
 
     setConfirMMessage(`A new blog ${blogObject.title} added`)
     setTimeout(() => {
@@ -96,6 +100,7 @@ const App = () => {
       }, 5000)
     }
 
+    //#region
     // remove(id)
     //   .then((returnedBlog) => {
     //     console.log(`delete blog ${returnedBlog}`)
@@ -117,6 +122,7 @@ const App = () => {
     // setTimeout(() => {
     //   setErrorMessage(null)
     // }, 5000)
+    //#endregion
   }
 
   return (

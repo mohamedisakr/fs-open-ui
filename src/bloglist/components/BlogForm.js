@@ -14,17 +14,22 @@ const BlogForm = ({createBlog, id}) => {
   }
 
   const addBlog = (event) => {
-    event.preventDefault()
-    // const blogToAdd = {title, url, user: user.id}
-    createBlog({title, url, user: id})
-    // create(blogToAdd).then((returnedNote) => {
-    //   setBlogs(blogs.concat(returnedNote))
-    //   setTitle('')
-    //   setUrl('')
-    // })
+    try {
+      console.log(`event target : ${event.target}`)
+      event.preventDefault()
+      // const blogToAdd = {title, url, user: user.id}
+      createBlog({title, url, user: id})
+      // create(blogToAdd).then((returnedNote) => {
+      //   setBlogs(blogs.concat(returnedNote))
+      //   setTitle('')
+      //   setUrl('')
+      // })
 
-    setTitle('')
-    setUrl('')
+      setTitle('')
+      setUrl('')
+    } catch (error) {
+      console.error(error)
+    }
 
     // setConfirMMessage(`A new blog ${title} added`)
     // setTimeout(() => {

@@ -8,7 +8,6 @@ const BlogListView = ({blogs, handleDelete}) => {
       <div key={id} className="note-list">
         <BlogCart
           key={id}
-          id={id}
           title={title}
           user={user}
           likes={likes}

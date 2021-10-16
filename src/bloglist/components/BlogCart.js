@@ -9,7 +9,6 @@ const BlogCart = ({id, title, likes, url, user, handleDelete}) => {
       <p>
         {title} <button onClick={() => handleDelete(id)}>delete</button>
       </p>
-      <p>id: {id}</p>
       <p>{name}</p>
       <p>{likes}</p>
       <p>{url}</p>
