@@ -6,12 +6,12 @@ const BlogCart = ({id, title, likes, url, user, handleDelete}) => {
   console.log(`blog id : ${id}`)
   return (
     <div className="blogStyle" key={id}>
-      <p>
+      <p id="titleParag">
         {title} <button onClick={() => handleDelete(id)}>delete</button>
       </p>
-      <p>{name}</p>
-      <p>{likes}</p>
-      <p>{url}</p>
+      <p id="nameParag">{name}</p>
+      <p id="likesParag">{likes}</p>
+      <p id="urlParag">{url}</p>
     </div>
   )
 }
