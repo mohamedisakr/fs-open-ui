@@ -16,6 +16,7 @@ const App = () => {
   const getAllBlogs = async () => {
     const allBlogs = await getAll()
     setBlogs(allBlogs)
+    console.log(`blogs array data : ${allBlogs}`)
   }
 
   useEffect(() => {
@@ -79,25 +80,38 @@ const App = () => {
     }, 5000)
   }
 
-  const deleteBlog = (id) => {
-    const blog = blogs.find((p) => p.id === id)
-    console.log(`token : ${user.token}`)
-    remove(id)
-      .then((returnedBlog) => {
-        console.log(`delete blog ${returnedBlog}`)
-        setBlogs(blogs.filter((p) => p.id !== id))
-      })
-      .catch((error) => {
-        console.error(error)
-        setErrorMessage(
-          `The note '${blog.title}' was already deleted from server`,
-        )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
+  const deleteBlog = async (id) => {
+    try {
+      console.log(`blogs array data : ${blogs}`)
+      const blog = blogs.find((p) => p.id === id)
+      // console.log(`token : ${user.token}`)
 
-        setBlogs(blogs.filter((p) => p.id !== id))
-      })
+      const returnedBlog = await remove(id)
+      setBlogs(blogs.filter((p) => p.id !== id))
+    } catch (error) {
+      console.error(error)
+      setErrorMessage(`The Blog was already deleted from server`)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+
+    // remove(id)
+    //   .then((returnedBlog) => {
+    //     console.log(`delete blog ${returnedBlog}`)
+    //     setBlogs(blogs.filter((p) => p.id !== id))
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //     setErrorMessage(
+    //       `The note '${blog.title}' was already deleted from server`,
+    //     )
+    //     setTimeout(() => {
+    //       setErrorMessage(null)
+    //     }, 5000)
+
+    //     setBlogs(blogs.filter((p) => p.id !== id))
+    //   })
 
     // setErrorMessage(`Blog deleted successfully`)
     // setTimeout(() => {
@@ -129,11 +143,3 @@ const App = () => {
 }
 
 export default App
-// <LoginForm onSubmit={handleLogin} />
-// <LoginForm
-//   onSubmit={handleLogin}
-//   username={username}
-//   password={password}
-//   onUsernameChange={({target}) => setUsername(target.value)}
-//   onPasswordChange={({target}) => setPassword(target.value)}
-// />

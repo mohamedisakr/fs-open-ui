@@ -1,35 +1,23 @@
-import Blog from './Blog'
+import BlogCart from './BlogCart'
 
 const BlogListView = ({blogs, handleDelete}) => {
   return blogs.map((blog) => {
-    const {id} = blog
-    console.log('====================================')
+    const {id, title, likes, url, user} = blog
     console.log(`blog id : ${id}`)
-    console.log('====================================')
     return (
-      <ul key={id} className="note-list">
-        <Blog key={id} blog={blog} handleDelete={() => handleDelete(id)} />
-      </ul>
+      <div key={id} className="note-list">
+        <BlogCart
+          key={id}
+          id={id}
+          title={title}
+          user={user}
+          likes={likes}
+          url={url}
+          handleDelete={() => handleDelete(id)}
+        />
+      </div>
     )
   })
 }
-
-/*
-return persons.map((person) => {
-    const {id, name, number} = person
-
-    return (
-      <ul key={id} style={{listStyle: 'none', padding: 0}}>
-        <PersonCart
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          handleDelete={() => handleDelete(id)}
-        />
-      </ul>
-    )
-  })
-*/
 
 export default BlogListView

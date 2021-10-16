@@ -23,10 +23,12 @@ const create = async (newObject) => {
 }
 
 const remove = async (id) => {
+  console.log(`blog url : ${baseUrl}`)
   const config = {
     headers: {Authorization: token},
   }
-  const response = await axios.delete(`${baseUrl}/${id}`, config)
+  console.log(`token : ${token}`)
+  const response = await axios.delete(`${baseUrl}/${id}`, config) //
   return response.data
 }
 export {getAll, create, remove, setToken}
