@@ -84,13 +84,13 @@ const App = () => {
     }, 5000)
   }
 
-  const deleteBlog = async (id) => {
+  const deleteBlog = (id) => {
     try {
       console.log(`blogs array data : ${blogs}`)
-      const blog = blogs.find((p) => p.id === id)
+      // const blog = blogs.find((p) => p.id === id)
       // console.log(`token : ${user.token}`)
 
-      const returnedBlog = await remove(id)
+      const returnedBlog = remove(id)
       setBlogs(blogs.filter((p) => p.id !== id))
     } catch (error) {
       console.error(error)
