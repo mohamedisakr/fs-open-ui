@@ -1,14 +1,6 @@
 import React from 'react'
 import {createStore} from 'redux'
-
-const noteReducer = (state = [], action) => {
-  if (action.type === 'NEW_NOTE') {
-    state.push(action.data)
-    return state
-  }
-
-  return state
-}
+import noteReducer from './reducers/noteReducer'
 
 const store = createStore(noteReducer)
 
@@ -30,10 +22,16 @@ store.dispatch({
   },
 })
 
+store.dispatch({
+  type: 'TOGGLE_IMPORTANCE',
+  data: {
+    id: 2,
+  },
+})
+
 const App = () => {
   return (
     <div>
-      {/* <div>{store.getState()}</div> */}
       <ul>
         {store.getState().map((note) => (
           <li key={note.id}>

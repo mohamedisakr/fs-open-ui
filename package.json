@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.1.2"
+    "@testing-library/react": "^12.1.2",
+    "deep-freeze": "^0.0.1"
   }
 }
