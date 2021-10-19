@@ -5,12 +5,13 @@ import AnecdoteCard from './AnecdoteCard'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
-  // const anecdotes = useSelector((state) => state.anecdotes)
+
   const anecdotes = useSelector(({filter, anecdotes}) => {
-    if (filter === '') {
+    if (filter === null) {
       return anecdotes
     }
-    return anecdotes.filter((anec) => anec)
+    const regex = new RegExp(filter, 'i')
+    return anecdotes.filter((anecdote) => anecdote.content.match(regex))
   })
 
   return (
