@@ -1,28 +1,53 @@
 import {useDispatch, useSelector} from 'react-redux'
-import {incrementLikes} from '../reducers/blogReducer'
+import {incrementLikes, deleteBlog} from '../reducers/blogReducer'
 import BlogCart from './BlogCart'
 
-const BlogList = ({handleDelete}) => {
+const BlogList = () => {
   const dispatch = useDispatch()
   const blogs = useSelector((state) => state)
-
-  return blogs.map((blog) => {
-    const {id, title, likes, url, user} = blog
-    console.log(`blog id : ${id}`)
-    return (
-      <div key={id} className="note-list">
-        <BlogCart
-          key={id}
-          title={title}
-          user={user}
-          likes={likes}
-          url={url}
-          handleDelete={() => {}}
-          handleClick={() => dispatch(incrementLikes(id))}
-        />
-      </div>
-    )
-  })
+  // id,  title,  likes,  url,  user
+  return (
+    <ul className="note-list">
+      {blogs.map((blog) => {
+        const {id, title, likes, url, user} = blog
+        // const {name} = user
+        console.log(`blog id : ${id}`)
+        // console.log(`blog name : ${name}`)
+        return (
+          <BlogCart
+            key={id}
+            title={title}
+            user={user}
+            likes={likes}
+            url={url}
+            handleDelete={() => dispatch(deleteBlog(id))}
+            handleClick={() => dispatch(incrementLikes(id))}
+          />
+        )
+      })}
+    </ul>
+  )
+  // return blogs.map((blog) => {
+  //   const {id, title, likes, url, user} = blog
+  //   const {name} = user
+  //   console.log(`blog id : ${id}`)
+  //   console.log(`blog title : ${title}`)
+  //   console.log(`blog user : ${user}`)
+  //   console.log(`blog name : ${name}`)
+  //   return (
+  //     <ul className="note-list">
+  //       <BlogCart
+  //         key={id}
+  //         title={title}
+  //         user={name}
+  //         likes={likes}
+  //         url={url}
+  //         handleDelete={() => dispatch(deleteBlog(id))}
+  //         handleClick={() => dispatch(incrementLikes(id))}
+  //       />
+  //     </ul>
+  //   )
+  // })
 }
 
 export default BlogList

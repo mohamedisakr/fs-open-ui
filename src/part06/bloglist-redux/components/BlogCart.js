@@ -7,19 +7,21 @@ const BlogCart = ({
   handleDelete,
   handleIncLikes,
 }) => {
-  const {name} = user
+  // const {name} = user
   console.log(`blog id : ${id}`)
+  // console.log(`blog name : ${user.name}`)
   return (
-    <div className="blogStyle" key={id}>
+    <li className="blogStyle">
+      {/* <p id="idParag">{id}</p> */}
       <p id="titleParag">
         {title} <button onClick={() => handleDelete(id)}>delete</button>
       </p>
-      <p id="nameParag">{name}</p>
+      <p id="nameParag">{user}</p>
       <p id="likesParag">
         {likes} <button onClick={() => handleIncLikes(id)}>like</button>
       </p>
       <p id="urlParag">{url}</p>
-    </div>
+    </li>
   )
 }
 

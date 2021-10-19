@@ -1,19 +1,21 @@
+const getId = () => (100000 * Math.random()).toFixed(0) // Date.now()
+
 const initialState = [
   {
-    id: '61660824ff82642821bb6c3c',
+    id: getId(), //'61660824ff82642821bb6c3c',
     title: 'React Cookbook',
+    likes: 0,
     url: 'https://www.mern.io/react-cookbook',
-    user: '616607f4ff82642821bb6c38',
+    user: 'Mohamed Sakr', //{name: 'Mohamed Sakr', id: 101},
   },
   {
-    id: '6167235c1eb6d579b492e0a1',
+    id: getId(), //'6167235c1eb6d579b492e0a1',
     title: 'Node.js Security',
+    likes: 0,
     url: 'mern.io/node-sec',
-    user: '616607f4ff82642821bb6c38',
+    user: 'Mohamed Sakr', //{name: 'Mohamed Sakr', id: 101},
   },
 ]
-
-const getId = () => (100000 * Math.random()).toFixed(0) // Date.now()
 
 const blogReducer = (state = initialState, action) => {
   console.log(`state now: ${state}`)
@@ -50,6 +52,13 @@ export const createBlog = (title, url, user) => {
       user,
       likes: 0,
     },
+  }
+}
+
+export const deleteBlog = (id) => {
+  return {
+    type: 'DELETE_BLOG',
+    data: {id},
   }
 }
 
