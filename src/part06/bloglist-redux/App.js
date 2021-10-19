@@ -1,13 +1,10 @@
-// import NewNoteForm from './components/NewNoteForm'
-// import NoteList from './components/NoteList'
-
+import BlogForm from './components/BlogForm'
 import BlogList from './components/BlogList'
 
 const App = () => {
   return (
     <div>
-      {/* <NewNoteForm />
-      <NoteList /> */}
+      <BlogForm />
       <BlogList />
     </div>
   )

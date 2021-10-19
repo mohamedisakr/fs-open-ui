@@ -1,15 +1,15 @@
-const getId = () => (100000 * Math.random()).toFixed(0) // Date.now()
+export const getId = () => (100000 * Math.random()).toFixed(0) // Date.now()
 
 const initialState = [
   {
-    id: getId(), //'61660824ff82642821bb6c3c',
+    id: 16646, //getId(), //'61660824ff82642821bb6c3c',
     title: 'React Cookbook',
     likes: 0,
     url: 'https://www.mern.io/react-cookbook',
     user: 'Mohamed Sakr', //{name: 'Mohamed Sakr', id: 101},
   },
   {
-    id: getId(), //'6167235c1eb6d579b492e0a1',
+    id: 47822, //getId(), //'6167235c1eb6d579b492e0a1',
     title: 'Node.js Security',
     likes: 0,
     url: 'mern.io/node-sec',
