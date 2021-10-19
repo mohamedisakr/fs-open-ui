@@ -8,11 +8,6 @@ const VisibilityFilter = () => {
   const handleChange = (event) => {
     // input-field value is in variable event.target.value
     dispatch(filterChange(event.target.value))
-
-    // event.preventDefault()
-    // const keyword = event.target.search.value
-    // event.target.search.value = ''
-    // dispatch(filterChange(keyword))
   }
 
   const style = {
