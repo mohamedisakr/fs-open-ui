@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import {createStore} from 'redux'
+import {createStore, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import App from './part06-many-reds/note-app/App'
 import noteReducer from './part06-many-reds/note-app/reducers/noteReducer'
+import filterReducer from './part06-many-reds/note-app/reducers/filterReducer'
 
-const store = createStore(noteReducer)
+const reducer = combineReducers({notes: noteReducer, filter: filterReducer})
+const store = createStore(reducer)
+console.log(store.getState())
 
 ReactDOM.render(
   <React.StrictMode>
