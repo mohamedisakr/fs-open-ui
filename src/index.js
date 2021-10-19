@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import App from './part06/bloglist-redux/App'
-import blogReducer from './part06/bloglist-redux/reducers/blogReducer'
+import App from './part06-many-reds/note-app/App'
+import noteReducer from './part06-many-reds/note-app/reducers/noteReducer'
 
-const store = createStore(blogReducer)
+const store = createStore(noteReducer)
 
 ReactDOM.render(
   <React.StrictMode>
