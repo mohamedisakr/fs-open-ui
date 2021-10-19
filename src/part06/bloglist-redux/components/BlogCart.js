@@ -14,11 +14,11 @@ const BlogCart = ({
     <li className="blogStyle">
       {/* <p id="idParag">{id}</p> */}
       <p id="titleParag">
-        {title} <button onClick={() => handleDelete(id)}>delete</button>
+        {title} <button onClick={handleDelete}>delete</button>
       </p>
       <p id="nameParag">{user}</p>
       <p id="likesParag">
-        {likes} <button onClick={() => handleIncLikes(id)}>like</button>
+        {likes} <button onClick={handleIncLikes}>like</button>
       </p>
       <p id="urlParag">{url}</p>
     </li>

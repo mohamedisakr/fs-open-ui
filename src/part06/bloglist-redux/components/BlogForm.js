@@ -13,7 +13,7 @@ const BlogForm = () => {
     event.target.title.value = ''
     const url = event.target.url.value
     event.target.url.value = ''
-    dispatch(createBlog({title, url, user: getId()}))
+    dispatch(createBlog(title, url, getId()))
     // } catch (error) {
     //   console.error(error)
     // }

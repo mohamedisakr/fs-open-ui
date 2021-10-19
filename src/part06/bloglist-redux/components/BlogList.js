@@ -21,12 +21,13 @@ const BlogList = () => {
             likes={likes}
             url={url}
             handleDelete={() => dispatch(deleteBlog(id))}
-            handleClick={() => dispatch(incrementLikes(id))}
+            handleIncLikes={() => dispatch(incrementLikes(id))}
           />
         )
       })}
     </ul>
   )
+  // handleClick={() => dispatch(incrementVote(anecdot.id))}
   // return blogs.map((blog) => {
   //   const {id, title, likes, url, user} = blog
   //   const {name} = user

@@ -19,7 +19,7 @@ const initialState = [
 
 const blogReducer = (state = initialState, action) => {
   console.log(`state now: ${state}`)
-  console.log(`action : ${action}`)
+  console.log(`action : ${action.type}`)
 
   switch (action.type) {
     case 'NEW_BLOG':
@@ -44,7 +44,7 @@ const blogReducer = (state = initialState, action) => {
 
 export const createBlog = (title, url, user) => {
   return {
-    type: 'NEW_ANECDOTE',
+    type: 'NEW_BLOG',
     data: {
       id: getId(),
       title,
