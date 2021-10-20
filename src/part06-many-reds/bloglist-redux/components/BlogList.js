@@ -4,7 +4,7 @@ import BlogCart from './BlogCart'
 
 const BlogList = () => {
   const dispatch = useDispatch()
-  const blogs = useSelector((state) => state)
+  const blogs = useSelector((state) => state.blogs)
   // id,  title,  likes,  url,  user
   return (
     <ul className="note-list">

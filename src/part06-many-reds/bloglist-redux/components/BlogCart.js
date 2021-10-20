@@ -1,18 +1,8 @@
-const BlogCart = ({
-  id,
-  title,
-  likes,
-  url,
-  user,
-  handleDelete,
-  handleIncLikes,
-}) => {
+const BlogCart = ({title, likes, url, user, handleDelete, handleIncLikes}) => {
   // const {name} = user
-  console.log(`blog id : ${id}`)
   // console.log(`blog name : ${user.name}`)
   return (
     <li className="blogStyle">
-      {/* <p id="idParag">{id}</p> */}
       <p id="titleParag">
         {title} <button onClick={handleDelete}>delete</button>
       </p>
