@@ -4,8 +4,15 @@ import BlogCart from './BlogCart'
 
 const BlogList = () => {
   const dispatch = useDispatch()
-  const blogs = useSelector((state) => state.blogs)
-  // id,  title,  likes,  url,  user
+
+  const blogs = useSelector(({filter, blogs}) => {
+    if (filter === null) {
+      return blogs
+    }
+    const regex = new RegExp(filter, 'i')
+    return blogs.filter((blog) => blog.title.match(regex))
+  })
+
   return (
     <ul className="note-list">
       {blogs.map((blog) => {
