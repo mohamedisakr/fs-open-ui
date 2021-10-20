@@ -13,17 +13,6 @@ export const createNew = async (content) => {
   return response.data
 }
 
-/*
-export const toggleImportance = async (id) => {
-  // get note by id
-  const {data} = await axios.get(`${baseUrl}/${id}`)
-
-  // update its importance
-  const updatedNote = {...data, important: !data.important}
-  const response = await axios.post(baseUrl, updatedNote)
-  return response.data
-}
-*/
 export const updateVoteCount = async (id) => {
   console.log(`anecdote id from server : ${id}`)
 
