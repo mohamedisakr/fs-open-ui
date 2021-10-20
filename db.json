@@ -68,6 +68,16 @@
       "date": "2021-10-01T17:01:26.005Z",
       "important": false,
       "id": 7
+    },
+    {
+      "content": "the app state is in redux store",
+      "important": false,
+      "id": 8
+    },
+    {
+      "content": "Node.js Design Patterns",
+      "important": false,
+      "id": 9
     }
   ]
 }

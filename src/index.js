@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import {Provider} from 'react-redux'
-import App from './part06-many-reds/bloglist-redux/App'
-import store from './part06-many-reds/bloglist-redux/reducers/store'
+import App from './part06-server/note-app/App'
+import store from './part06-server/note-app/reducers/store'
 
 ReactDOM.render(
   <React.StrictMode>
