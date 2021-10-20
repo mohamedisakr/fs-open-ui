@@ -10,7 +10,7 @@ const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     getAll().then((notes) => dispatch(initializeAnecdotes(notes)))
-  }, [])
+  }, [dispatch])
 
   return (
     <div>

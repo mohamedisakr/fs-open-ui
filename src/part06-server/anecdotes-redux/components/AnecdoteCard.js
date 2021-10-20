@@ -1,6 +1,6 @@
 const NoteCard = ({anecdote, handleClick}) => {
   return (
-    <li key={anecdote.id}>
+    <li>
       {anecdote.content}
       <strong> has {anecdote.votes} </strong>
       <button onClick={handleClick}>vote</button>
