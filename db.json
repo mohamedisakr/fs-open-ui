@@ -49,6 +49,11 @@
       "content": "redux is awesome",
       "votes": 2,
       "id": "t1YcJGB"
+    },
+    {
+      "content": "Asynchronous actions and redux thunk",
+      "votes": 2,
+      "id": "BPWH7Gg"
     }
   ],
   "persons": [
