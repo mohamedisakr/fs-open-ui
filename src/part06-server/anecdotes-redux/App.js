@@ -2,14 +2,14 @@ import React, {useEffect} from 'react'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import VisibilityFilter from './components/VisibilityFilter'
-import {getAll} from '../../services/anecdotes-json-serv'
 import {initializeAnecdotes} from './reducers/anecdoteReducer'
 import {useDispatch} from 'react-redux'
 
 const App = () => {
   const dispatch = useDispatch()
+
   useEffect(() => {
-    getAll().then((notes) => dispatch(initializeAnecdotes(notes)))
+    dispatch(initializeAnecdotes())
   }, [dispatch])
 
   return (
