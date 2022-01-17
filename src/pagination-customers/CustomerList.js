@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import ReactPaginate from 'react-paginate'
 import {getAll} from '../services/customers'
+import CustomerCard from './CustomerCard'
 
 const CustomerList = () => {
   const [customers, setCustomers] = useState([])
   const [meta, setMeta] = useState({})
-  const [pageNumber, setPageNumber] = useState(1)
 
   useEffect(() => {
     loadAllCustomers()
@@ -20,30 +20,61 @@ const CustomerList = () => {
     setCustomers(results)
   }
 
-  const {total, pages, next, previous} = meta
-
   const displayCustomers = () => {
-    return customers.map(({_id, username, name, email}) => {
-      return (
-        <div key={_id}>
-          <p>{username}</p>
-          <p>{name}</p>
-          <p>{email}</p>
-        </div>
-      )
-    })
+    return (
+      // <div className="col-sm-6 col-md-4 v my-2">
+      <div className="row m-2">
+        {customers.map(({_id, username, name, email}) => {
+          return (
+            <div key={_id}>
+              <CustomerCard
+                _id={_id}
+                username={username}
+                name={name}
+                email={email}
+              />
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 
+  let {total, pages, current, next, previous} = meta
+  const [pageNumber, setPageNumber] = useState(current)
+
   const handlePageChange = ({selected}) => {
-    setPageNumber(selected)
+    console.log(`meta ${JSON.stringify(meta, null, 4)}`)
+    console.log(`selected page : ${selected}`)
+    // setPageNumber(selected)
+    current = selected
   }
 
   return (
-    <div>
+    <div className="container">
       {customers && meta && (
         <>
           {displayCustomers()}
           <ReactPaginate
+            pageCount={pages}
+            onPageChange={handlePageChange}
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            breakLabel={'...'}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            containerClassName={'pagination justify-content-center'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            activeClassName={'active'}
+          />
+          {/* <ReactPaginate
             pageCount={pages}
             onPageChange={handlePageChange}
             previousLabel={'Previous'}
@@ -53,7 +84,7 @@ const CustomerList = () => {
             nextLinkClassName={'nextBttn'}
             disabledClassName={'paginationDisabled'}
             activeClassName={'paginationActive'}
-          />
+          /> */}
         </>
       )}
     </div>

@@ -1,4 +1,4 @@
-import './App.css'
+// import './App.css'
 import CustomerList from './pagination-customers/CustomerList'
 
 const App = () => {
