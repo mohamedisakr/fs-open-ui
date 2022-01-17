@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import ReactPaginate from 'react-paginate'
-import {getAll} from '../services/customers'
+import {getAll, getCustomers} from '../services/customers'
 import CustomerCard from './CustomerCard'
 
 const CustomerList = () => {
   const [customers, setCustomers] = useState([])
   const [meta, setMeta] = useState({})
+  let limit = 10
 
   useEffect(() => {
     loadAllCustomers()
-  }, [])
+  }, [limit])
 
   const loadAllCustomers = async () => {
     const res = await getAll()
-    // console.log(`response : ${JSON.stringify(res, null, 4)}`)
-
     const {meta, results} = res.data
     setMeta(meta)
     setCustomers(results)
@@ -22,7 +21,6 @@ const CustomerList = () => {
 
   const displayCustomers = () => {
     return (
-      // <div className="col-sm-6 col-md-4 v my-2">
       <div className="row m-2">
         {customers.map(({_id, username, name, email}) => {
           return (
@@ -40,15 +38,15 @@ const CustomerList = () => {
     )
   }
 
-  let {total, pages, current, next, previous} = meta
-  const [pageNumber, setPageNumber] = useState(current)
-
-  const handlePageChange = ({selected}) => {
-    console.log(`meta ${JSON.stringify(meta, null, 4)}`)
-    console.log(`selected page : ${selected}`)
-    // setPageNumber(selected)
-    current = selected
+  const handlePageChange = async ({selected}) => {
+    let currentPage = selected + 1
+    const res = await getCustomers(currentPage, limit)
+    const {meta, results} = res.data
+    setMeta(meta)
+    setCustomers(results)
   }
+
+  let {pages} = meta
 
   return (
     <div className="container">
@@ -74,17 +72,6 @@ const CustomerList = () => {
             breakLinkClassName={'page-link'}
             activeClassName={'active'}
           />
-          {/* <ReactPaginate
-            pageCount={pages}
-            onPageChange={handlePageChange}
-            previousLabel={'Previous'}
-            nextLabel={'Next'}
-            containerClassName={'paginationBttns'}
-            previousLinkClassName={'previousBttn'}
-            nextLinkClassName={'nextBttn'}
-            disabledClassName={'paginationDisabled'}
-            activeClassName={'paginationActive'}
-          /> */}
         </>
       )}
     </div>
@@ -92,8 +79,3 @@ const CustomerList = () => {
 }
 
 export default CustomerList
-
-/* 
-<pre>{JSON.stringify(meta, null, 4)}</pre>
-<pre>{JSON.stringify(customers, null, 4)}</pre> 
-*/

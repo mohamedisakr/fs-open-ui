@@ -8,4 +8,10 @@ const getAll = async () => {
   const res = await axios.get(baseUrl)
   return res
 }
-export {getAll}
+
+const getCustomers = async (currentPage, limit) => {
+  const res = await axios.get(`${baseUrl}?page=${currentPage}&limit=${limit}`)
+  return res
+}
+
+export {getAll, getCustomers}
